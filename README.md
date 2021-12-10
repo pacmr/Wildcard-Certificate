@@ -1,5 +1,5 @@
 # Wildcard-Certificate
-Create your own self signed Wildcard Certificate with root CA.
+Create your own self signed Wildcard Certificate with root CA for Android, Iphone, Windows and Linux.
 
 Run the bash script on a Linux machine and it generates the following files:
 - root_CA.key  
