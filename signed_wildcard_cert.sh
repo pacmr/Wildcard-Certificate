@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Usage: signed_cert.sh
+# Usage: signed_wildcard_cert.sh
 #
 # Creates a CA cert and then generates an SSL wildcard certificate 
 # signed by that CA for the given hostname.
