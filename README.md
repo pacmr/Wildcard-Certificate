@@ -17,8 +17,8 @@ Copy them to your ssl dir in your webserver.
 This certificate is an wildcard certificate: *.domain.my  
 
 - server.pfx
-This is an combination of server.key and server.crt
-Some applications need this, ie jellyfin
+This is an combination of server.key and server.crt.
+Some applications need this, ie jellyfin.
 This is to be generated every year.
 This certificate is an wildcard certificate: *.domain.my 
 
