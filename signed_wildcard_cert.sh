@@ -170,32 +170,51 @@ if ! [ -f $HOST_CERT ] ; then
 
     give_return
 
-    openssl x509 -req -in $HOST_CSR -CA $CA_CERT -CAkey $CA_KEY -CAcreateserial -out $HOST_CERT -days 365 -sha256 -extfile $HOST_EXT
+    openssl x509 -req -in $HOST_CSR -CA $CA_CERT -CAkey $CA_KEY -CAcreateserial -out $HOST_CERT -days 398 -sha256 -extfile $HOST_EXT
 
     rm $HOST_EXT
     rm $HOST_CSR
     rm $DIR/*.srl
 fi
 
+#########################################
+### Certificate pfx certificaat create
+#########################################
+HOST_PFX=$DIR/server.pfx
+
+# Every time you run this script a new server.pfx is created
+# This has to happen every year. (ea browser chrome)
+rm $HOST_PFX
+
+if ! [ -f $HOST_PFX ] ; then
+    openssl pkcs12 -export -out $HOST_PFX -inkey $HOST_KEY -in $HOST_CERT
+fi
+
 give_return
 echo $CLR
 
 echo "#################################################################"
-echo "# " 
-echo "# - root_CA.key " 
-echo "# The root_CA.key file is your CA root private key." 
-echo "# Keep this one save and the password to create it." 
-echo "# " 
-echo "# - root_CA_der.crt " 
-echo "# The root_CA_der.crt file is your CA root certificate." 
+echo "# "
+echo "# - root_CA.key "
+echo "# The root_CA.key file is your CA root private key."
+echo "# Keep this one save and the password to create it."
+echo "# "
+echo "# - root_CA_der.crt "
+echo "# The root_CA_der.crt file is your CA root certificate."
 echo "# It is valid for 20 years, so generated ones. :-)"
-echo "# Import this certificaat on Android (9), Iphone, Windows and Linux." 
-echo "#  " 
-echo "# - server.key and server.crt "  
-echo "# These are to be generated every year. " 
-echo "# Copy them to your ssl dir in your webserver. " 
-echo "# This certificate is an wildcard certificate: *.$name " 
-echo "#  " 
+echo "# Import this certificaat on Android (9), Iphone, Windows and Linux."
+echo "#  "
+echo "# - server.key and server.crt "
+echo "# These are to be generated every year. "
+echo "# Copy them to your ssl dir in your webserver. "
+echo "# This certificate is an wildcard certificate: *.$name "
+echo "#  "
+echo "# - server.pfx "
+echo "# This is an combination of server.key and server.crt "
+echo "# Some applications need this, ie jellyfin "
+echo "# This is to be generated every year. "
+echo "# This certificate is an wildcard certificate: *.$name "
+echo "#  "
 echo "#################################################################"
 
 give_return
@@ -211,4 +230,3 @@ exit
 #
 # For PEM
 # openssl x509 -in <cert.crt> -text -inform pem
-
